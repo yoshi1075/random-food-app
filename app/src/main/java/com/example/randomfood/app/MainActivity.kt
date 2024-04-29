@@ -1,4 +1,4 @@
-package com.example.randomfood
+package com.example.randomfood.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
