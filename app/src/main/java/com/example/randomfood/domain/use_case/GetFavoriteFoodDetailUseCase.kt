@@ -1,16 +1,17 @@
 package com.example.randomfood.domain.use_case
 
 import com.example.randomfood.domain.model.Food
+import com.example.randomfood.domain.model.FoodDetail
 import com.example.randomfood.domain.repository.FavoriteFoodRepository
 
-class DeleteFavoriteFood(
+class GetFavoriteFoodDetailUseCase(
     private var favoriteFoodRepository: FavoriteFoodRepository
 ) {
-    suspend operator fun invoke(food: Food): Boolean {
+    suspend operator fun invoke(food: Food): Result<FoodDetail> {
         return try {
-            favoriteFoodRepository.deleteFavoriteFood(food)
+            Result.success(favoriteFoodRepository.getFavoriteFoodDetail(food))
         } catch (e: Exception) {
-            false
+            Result.failure(e)
         }
     }
 }

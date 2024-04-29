@@ -2,16 +2,15 @@ package com.example.randomfood.domain.use_case
 
 import com.example.randomfood.domain.model.Food
 import com.example.randomfood.domain.repository.FavoriteFoodRepository
-import kotlinx.coroutines.flow.Flow
 
-class GetFavoriteFoodList(
+class RegisterFavoriteFoodUseCase(
     private var favoriteFoodRepository: FavoriteFoodRepository
 ) {
-    suspend operator fun invoke(): Result<Flow<List<Food>>> {
+    suspend operator fun invoke(food: Food): Boolean {
         return try {
-            Result.success(favoriteFoodRepository.getFavoriteFoodListStream())
+            favoriteFoodRepository.registerFavoriteFood(food)
         } catch (e: Exception) {
-            Result.failure(e)
+            false
         }
     }
 }
