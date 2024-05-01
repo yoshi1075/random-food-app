@@ -2,4 +2,12 @@
 plugins {
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
+    id("com.google.devtools.ksp") version "1.9.0-1.0.12" apply false
+    id("com.google.dagger.hilt.android") version "2.49" apply false
+}
+
+buildscript {
+    dependencies {
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.49")
+    }
 }
