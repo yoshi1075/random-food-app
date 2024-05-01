@@ -3,7 +3,7 @@ package com.example.randomfood.domain.use_case
 import com.example.randomfood.domain.model.Food
 import com.example.randomfood.domain.repository.RandomFoodRepository
 
-class GetRandomFood(
+class GetRandomFoodUseCase(
     private val randomFoodRepository: RandomFoodRepository,
 ) {
     suspend operator fun invoke(): Result<Food> {
