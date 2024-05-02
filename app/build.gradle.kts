@@ -74,7 +74,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:$retrofit_version")
 
     // Moshi
-    val moshi_version = "1.5.0"
+    val moshi_version = "1.12.0"
     implementation("com.squareup.moshi:moshi:$moshi_version")
     implementation("com.squareup.moshi:moshi-kotlin:$moshi_version")
     //endregion
