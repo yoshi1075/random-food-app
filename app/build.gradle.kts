@@ -63,6 +63,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    // Navigation
+    implementation(libs.androidx.navigation.compose)
+
     // Hilt
     val hiltVersion = "2.49"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
