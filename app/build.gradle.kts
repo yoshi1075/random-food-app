@@ -66,10 +66,14 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.compose)
 
+    // lifecycle - collectAsStateWithLifecycleの使用
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+
     // Hilt
     val hiltVersion = "2.49"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0") // hiltViewModelの使用
 
     // Retrofit2
     val retrofit_version = "2.9.0"
