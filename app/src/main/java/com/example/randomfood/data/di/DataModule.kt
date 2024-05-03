@@ -2,16 +2,17 @@ package com.example.randomfood.data.di
 
 import com.example.randomfood.data.data_source.remote.FreeMealApi
 import com.example.randomfood.data.util.Constants.BASE_URL
-import com.example.randomfood.domain.repository.RandomFoodRepository
-import com.example.randomfood.domain.use_case.GetRandomFoodUseCase
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -31,6 +32,7 @@ object DataModule {
     fun provideRetrofit(moshiConverterFactory: MoshiConverterFactory): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(getClient())
             .addConverterFactory(moshiConverterFactory)
             .build()
     }
@@ -39,5 +41,19 @@ object DataModule {
     @Singleton
     fun provideFreeMealApi(retrofit: Retrofit): FreeMealApi {
         return retrofit.create(FreeMealApi::class.java)
+    }
+
+    private fun getClient(): OkHttpClient {
+        return OkHttpClient
+            .Builder()
+            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS)
+            .addInterceptor(
+                HttpLoggingInterceptor()
+                    .apply {
+                        level = HttpLoggingInterceptor.Level.BODY
+                    }
+            )
+            .build()
     }
 }
