@@ -16,7 +16,9 @@ import com.example.randomfood.presentation.screens.favorite_food_detail.favorite
 import com.example.randomfood.presentation.screens.favorite_food_list.favoriteFoodListScreen
 import com.example.randomfood.presentation.screens.random_food_viewer.randomFoodViewerScreen
 import com.example.randomfood.ui.theme.RandomFoodTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

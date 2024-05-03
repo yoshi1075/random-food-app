@@ -4,9 +4,7 @@ import com.example.randomfood.data.data_source.remote.FreeMealApi
 import com.example.randomfood.domain.model.Food
 import com.example.randomfood.domain.repository.RandomFoodRepository
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class DefaultRandomFoodRepository @Inject constructor(
     private val api: FreeMealApi,
 ) : RandomFoodRepository {

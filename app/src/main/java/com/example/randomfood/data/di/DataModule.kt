@@ -2,6 +2,8 @@ package com.example.randomfood.data.di
 
 import com.example.randomfood.data.data_source.remote.FreeMealApi
 import com.example.randomfood.data.util.Constants.BASE_URL
+import com.example.randomfood.domain.repository.RandomFoodRepository
+import com.example.randomfood.domain.use_case.GetRandomFoodUseCase
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
