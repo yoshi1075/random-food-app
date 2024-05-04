@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.randomfood.data.data_source.local.FavoriteFoodDao
 import com.example.randomfood.data.data_source.local.FavoriteFoodDatabase
+import com.example.randomfood.data.data_source.local.FavoriteFoodDatabase.Companion.DATABASE_NAME
 import com.example.randomfood.data.data_source.remote.FreeMealApi
 import com.example.randomfood.data.util.Constants.BASE_URL
 import com.squareup.moshi.KotlinJsonAdapterFactory
@@ -65,7 +66,7 @@ object DataModule {
     @Provides
     @Singleton
     fun provideFavoriteFoodDatabase(@ApplicationContext context: Context): FavoriteFoodDatabase {
-        return Room.databaseBuilder(context, FavoriteFoodDatabase::class.java, "favorite_food")
+        return Room.databaseBuilder(context, FavoriteFoodDatabase::class.java, DATABASE_NAME)
             .fallbackToDestructiveMigration()
             .build()
     }

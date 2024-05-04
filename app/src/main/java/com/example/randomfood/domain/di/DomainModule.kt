@@ -6,6 +6,7 @@ import com.example.randomfood.data.repository.DefaultFavoriteFoodRepository
 import com.example.randomfood.data.repository.DefaultRandomFoodRepository
 import com.example.randomfood.domain.repository.FavoriteFoodRepository
 import com.example.randomfood.domain.repository.RandomFoodRepository
+import com.example.randomfood.domain.use_case.GetFavoriteFoodListStreamUseCase
 import com.example.randomfood.domain.use_case.GetRandomFoodUseCase
 import com.example.randomfood.domain.use_case.RegisterFavoriteFoodUseCase
 import dagger.Module
@@ -39,5 +40,11 @@ object DomainModule {
     @Singleton
     fun provideRegisterFavoriteFoodUseCase(repository: FavoriteFoodRepository): RegisterFavoriteFoodUseCase {
         return RegisterFavoriteFoodUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetFavoriteFoodListStreamUseCase(repository: FavoriteFoodRepository): GetFavoriteFoodListStreamUseCase {
+        return GetFavoriteFoodListStreamUseCase(repository)
     }
 }
