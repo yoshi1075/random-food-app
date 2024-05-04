@@ -4,10 +4,10 @@ import com.example.randomfood.domain.model.Food
 import com.example.randomfood.domain.repository.FavoriteFoodRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetFavoriteFoodListUseCase(
+class GetFavoriteFoodListStreamUseCase(
     private var favoriteFoodRepository: FavoriteFoodRepository
 ) {
-    suspend operator fun invoke(): Result<Flow<List<Food>>> {
+    operator fun invoke(): Result<Flow<List<Food>>> {
         return try {
             Result.success(favoriteFoodRepository.getFavoriteFoodListStream())
         } catch (e: Exception) {

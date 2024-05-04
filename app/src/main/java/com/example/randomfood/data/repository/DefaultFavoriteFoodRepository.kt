@@ -6,13 +6,23 @@ import com.example.randomfood.domain.model.Food
 import com.example.randomfood.domain.model.FoodDetail
 import com.example.randomfood.domain.repository.FavoriteFoodRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DefaultFavoriteFoodRepository @Inject constructor(
     private val dao: FavoriteFoodDao,
 ) : FavoriteFoodRepository {
-    override suspend fun getFavoriteFoodListStream(): Flow<List<Food>> {
-        TODO("Not yet implemented")
+    override fun getFavoriteFoodListStream(): Flow<List<Food>> {
+        return try {
+            dao.getFavoriteFoodListStream()
+                .map {
+                    it.map { entity ->
+                        entity.toFood()
+                    }
+                }
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
     override suspend fun getFavoriteFoodDetail(food: Food): FoodDetail {
