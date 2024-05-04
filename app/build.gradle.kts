@@ -84,6 +84,11 @@ dependencies {
     val moshi_version = "1.12.0"
     implementation("com.squareup.moshi:moshi:$moshi_version")
     implementation("com.squareup.moshi:moshi-kotlin:$moshi_version")
+
+    // Okhttp - ApiClient
+    val okhttp_version = "3.14.9"
+    implementation("com.squareup.okhttp3:okhttp:$okhttp_version")
+    implementation("com.squareup.okhttp3:logging-interceptor:$okhttp_version")
     //endregion
 
     //region unit-test
