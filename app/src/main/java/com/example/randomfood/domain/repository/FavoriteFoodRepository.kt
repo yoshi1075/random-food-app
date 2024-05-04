@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface FavoriteFoodRepository {
 
     /** @return list of user's favorite food */
-    fun getFavoriteFoodListStream(): Flow<List<Food>>
+    suspend fun getFavoriteFoodListStream(): Flow<List<Food>>
 
     /** @return food information*/
     suspend fun getFavoriteFoodDetail(food: Food): FoodDetail

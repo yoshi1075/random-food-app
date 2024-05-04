@@ -7,11 +7,7 @@ import kotlinx.coroutines.flow.Flow
 class GetFavoriteFoodListStreamUseCase(
     private var favoriteFoodRepository: FavoriteFoodRepository
 ) {
-    operator fun invoke(): Result<Flow<List<Food>>> {
-        return try {
-            Result.success(favoriteFoodRepository.getFavoriteFoodListStream())
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+    suspend operator fun invoke(): Flow<List<Food>> {
+        return favoriteFoodRepository.getFavoriteFoodListStream()
     }
 }
