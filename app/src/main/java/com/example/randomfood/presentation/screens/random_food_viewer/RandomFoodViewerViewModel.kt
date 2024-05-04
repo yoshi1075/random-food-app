@@ -1,9 +1,9 @@
 package com.example.randomfood.presentation.screens.random_food_viewer
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.randomfood.domain.use_case.GetRandomFoodUseCase
+import com.example.randomfood.domain.use_case.RegisterFavoriteFoodUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,11 +19,13 @@ sealed interface RandomFoodViewerUiState {
 
 sealed interface RandomFoodViewerEvent {
     data object OnRendered : RandomFoodViewerEvent
+    data object OnFavoriteButtonTapped : RandomFoodViewerEvent
 }
 
 @HiltViewModel
 class RandomFoodViewerViewModel @Inject constructor(
     private val getRandomFoodUseCase: GetRandomFoodUseCase,
+    private val registerFavoriteFoodUseCase: RegisterFavoriteFoodUseCase,
 ) : ViewModel() {
     private val _uiState : MutableStateFlow<RandomFoodViewerUiState> = MutableStateFlow(RandomFoodViewerUiState.Initial)
     val uiState = _uiState.asStateFlow()
@@ -32,6 +34,10 @@ class RandomFoodViewerViewModel @Inject constructor(
         when (event) {
             RandomFoodViewerEvent.OnRendered -> {
                 getRandomFood()
+            }
+
+            RandomFoodViewerEvent.OnFavoriteButtonTapped -> {
+                registerFavoriteFood()
             }
         }
     }
@@ -51,6 +57,13 @@ class RandomFoodViewerViewModel @Inject constructor(
                     RandomFoodViewerUiState.Failure(throwable.message ?: "Error!")
                 }
             }
+        }
+    }
+
+    private fun registerFavoriteFood() {
+        viewModelScope.launch {
+            val state = uiState.value as? RandomFoodViewerUiState.Success ?: return@launch
+            registerFavoriteFoodUseCase(state.foodData.toFood())
         }
     }
 }
