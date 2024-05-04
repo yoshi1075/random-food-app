@@ -94,6 +94,11 @@ dependencies {
     val coil_version = "1.4.0" // ver.2.1.0ではokhttpでエラーが出た
     implementation("io.coil-kt:coil:$coil_version")
     implementation("io.coil-kt:coil-compose:$coil_version")
+
+    // room - DB
+    val room_version = "2.4.2"
+    implementation("androidx.room:room-ktx:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
     //endregion
 
     //region unit-test

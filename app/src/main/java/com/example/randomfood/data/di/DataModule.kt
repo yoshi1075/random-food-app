@@ -1,5 +1,9 @@
 package com.example.randomfood.data.di
 
+import android.content.Context
+import androidx.room.Room
+import com.example.randomfood.data.data_source.local.FavoriteFoodDao
+import com.example.randomfood.data.data_source.local.FavoriteFoodDatabase
 import com.example.randomfood.data.data_source.remote.FreeMealApi
 import com.example.randomfood.data.util.Constants.BASE_URL
 import com.squareup.moshi.KotlinJsonAdapterFactory
@@ -7,6 +11,7 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -56,4 +61,16 @@ object DataModule {
             )
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteFoodDatabase(@ApplicationContext context: Context): FavoriteFoodDatabase {
+        return Room.databaseBuilder(context, FavoriteFoodDatabase::class.java, "favorite_food")
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteFoodDao(db: FavoriteFoodDatabase) = db.dao
 }

@@ -7,6 +7,8 @@ data class FoodViewerUiData(
     val name: String,
     val url: String,
 ) {
+    fun toFood() = Food(id, name, url)
+
     companion object {
         fun fromDomainFood(food: Food): FoodViewerUiData {
             return FoodViewerUiData(food.id, food.name, food.imageUrl)
