@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed interface RandomFoodViewerUiState {
-    data class Success(val url: String) : RandomFoodViewerUiState
+    data object Initial : RandomFoodViewerUiState
+    data class Success(val foodData: FoodViewerUiData) : RandomFoodViewerUiState
     data class Failure(val message: String) : RandomFoodViewerUiState
 }
 
@@ -24,7 +25,7 @@ sealed interface RandomFoodViewerEvent {
 class RandomFoodViewerViewModel @Inject constructor(
     private val getRandomFoodUseCase: GetRandomFoodUseCase,
 ) : ViewModel() {
-    private val _uiState : MutableStateFlow<RandomFoodViewerUiState> = MutableStateFlow(RandomFoodViewerUiState.Success(""))
+    private val _uiState : MutableStateFlow<RandomFoodViewerUiState> = MutableStateFlow(RandomFoodViewerUiState.Initial)
     val uiState = _uiState.asStateFlow()
 
     fun onEvent(event: RandomFoodViewerEvent) {
@@ -40,22 +41,15 @@ class RandomFoodViewerViewModel @Inject constructor(
             val result = getRandomFoodUseCase()
             result.onSuccess { food ->
                 _uiState.update {
-                    RandomFoodViewerUiState.Success(url = food.imageUrl)
+                    RandomFoodViewerUiState.Success(
+                        FoodViewerUiData.fromDomainFood(food)
+                    )
                 }
             }
             result.onFailure {  throwable ->
                 _uiState.update {
                     RandomFoodViewerUiState.Failure(throwable.message ?: "Error!")
                 }
-            }
-        }
-    }
-
-    companion object {
-        fun provideFactory(getRandomFoodUseCase: GetRandomFoodUseCase) = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return RandomFoodViewerViewModel(getRandomFoodUseCase) as T
             }
         }
     }

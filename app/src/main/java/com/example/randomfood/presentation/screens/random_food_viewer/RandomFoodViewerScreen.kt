@@ -41,9 +41,10 @@ fun RandomFoodViewerScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         when (val state = uiState.value) {
+            is RandomFoodViewerUiState.Initial -> {}
             is RandomFoodViewerUiState.Success -> {
                 Button(onClick = { navigateToRandomFoodViewer() }) {
-                    Text(text = state.url)
+                    Text(text = state.foodData.name)
                 }
             }
             is RandomFoodViewerUiState.Failure -> {
