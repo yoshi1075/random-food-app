@@ -59,7 +59,7 @@ fun RandomFoodViewerScreen(
                 ) {
                     Image(
                         painter = rememberImagePainter(state.foodData.url),
-                        contentDescription = null,
+                        contentDescription = "",
                         modifier = Modifier.size(200.dp)
                     )
                     Text(text = state.foodData.name)
