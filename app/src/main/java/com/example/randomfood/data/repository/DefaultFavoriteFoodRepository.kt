@@ -12,7 +12,7 @@ import javax.inject.Inject
 class DefaultFavoriteFoodRepository @Inject constructor(
     private val dao: FavoriteFoodDao,
 ) : FavoriteFoodRepository {
-    override fun getFavoriteFoodListStream(): Flow<List<Food>> {
+    override suspend fun getFavoriteFoodListStream(): Flow<List<Food>> {
         return try {
             dao.getFavoriteFoodListStream()
                 .map {
