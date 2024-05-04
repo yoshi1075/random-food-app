@@ -89,6 +89,11 @@ dependencies {
     val okhttp_version = "3.14.9"
     implementation("com.squareup.okhttp3:okhttp:$okhttp_version")
     implementation("com.squareup.okhttp3:logging-interceptor:$okhttp_version")
+
+    // coil - 画像url表示
+    val coil_version = "1.4.0" // ver.2.1.0ではokhttpでエラーが出た
+    implementation("io.coil-kt:coil:$coil_version")
+    implementation("io.coil-kt:coil-compose:$coil_version")
     //endregion
 
     //region unit-test
